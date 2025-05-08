@@ -13,3 +13,4 @@ public interface QuadtreeInterface<Item>{
 	
 	public abstract Item get(Item);
 
+}
