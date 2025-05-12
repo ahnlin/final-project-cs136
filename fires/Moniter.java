@@ -1,12 +1,15 @@
 package fires;
+import java.util.*; 
 public class Moniter{
 	private String site;
 	private double xcoord;
 	private double ycoord;
+	private HashMap<String,Double> data;
 	public Moniter(String site, double xcoord,double ycoord){
 		this.site = site;
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
+		this.data = new HashMap<String,Double>();
 	}
 	@Override
 	public String toString() {
@@ -14,6 +17,9 @@ public class Moniter{
 	}
 	public String getSite(){
 		return site;
+	}
+	public HashMap<String,Double> getData(){
+		return data;
 	}
 
 	public static void main(String[] args){
