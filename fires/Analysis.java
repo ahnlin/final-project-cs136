@@ -6,9 +6,9 @@ public class Analysis{
 
 
 
- 	public ArrayList<Moniter> testlist;
+ 	public HashMap<String,Moniter> testlist;
 	public Analysis(String filename){
-		this.testlist = new ArrayList<Moniter>();
+		this.testlist = new HashMap<String,Moniter>();
 		String filePath = filename; 
 		File file = new File(filePath);
 		
@@ -20,19 +20,13 @@ public class Analysis{
 
 			while (scanner.hasNextLine()) {
 				String[] pieces = scanner.nextLine().split(",");
-				String moniter = pieces[7];
+				String moniter = pieces[7].replace("\"", "");
 				Double xcoord = Double.valueOf(pieces[21].replace("\"", ""));
 				Double ycoord = Double.valueOf(pieces[22].replace("\"", ""));	
 				Moniter mon = new Moniter(moniter,xcoord,ycoord);
 				
-				boolean in = false;
-					for (Moniter item : testlist) {
-    					if (item.getSite().equals(moniter)) {
-       						 in = true;
-       					}
-       				}
-				if(in == false){
-					testlist.add(mon);
+				if(!testlist.containsKey(moniter)){
+					testlist.put(moniter,mon);
 				}
 			
             }
@@ -51,13 +45,8 @@ public class Analysis{
 				String[] pieces = scanner.nextLine().split(",");
 				String date = pieces[0].replace("\"", "");
 				Double reading = Double.valueOf(pieces[4].replace("\"", ""));
-				String moniter = pieces[7];
-				for (Moniter item : testlist) {
-    					if (item.getSite().equals(moniter)) {
-       						 item.getData().put(date,reading);
-       					}
-       			}
-
+				String moniter = pieces[7].replace("\"", "");
+				testlist.get(moniter).getData().put(date,reading);
 			}
 
 			
@@ -68,11 +57,9 @@ public class Analysis{
 	}
 	public static void main(String[] args){
 		Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
-		for(int i=0; i<test.testlist.size(); i++){
-			System.out.println(test.testlist.get(i).getData().get("01/02/2023"));
-			System.out.println(test.testlist.get(i).toString());
-
-		}
+		System.out.println(test.testlist.get("Glendora").getData().get("01/03/2023"));
 	}
+		
+
 
 }
