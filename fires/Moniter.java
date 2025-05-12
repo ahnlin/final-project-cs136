@@ -12,6 +12,9 @@ public class Moniter{
 	public String toString() {
 		return site + "\n" + "(" +xcoord+","+ ycoord+ ")" + "\n" + "-------" + "\n";
 	}
+	public String getSite(){
+		return site;
+	}
 
 	public static void main(String[] args){
 		Moniter test1 = new Moniter("TestSite",312.2,402.1);
