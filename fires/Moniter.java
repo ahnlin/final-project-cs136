@@ -13,7 +13,7 @@ public class Moniter{
 	}
 	@Override
 	public String toString() {
-		return site + "\n" + "(" +xcoord+","+ ycoord+ ")" + "\n" + "-------" + "\n";
+		return site + "\n" + "(" +xcoord+","+ ycoord+ ")" + "\n" + "-------";
 	}
 	public String getSite(){
 		return site;

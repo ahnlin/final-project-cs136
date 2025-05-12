@@ -69,8 +69,9 @@ public class Analysis{
 	public static void main(String[] args){
 		Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
 		for(int i=0; i<test.testlist.size(); i++){
-			System.out.println(test.testlist.get(i).getSite());
 			System.out.println(test.testlist.get(i).getData().get("01/02/2023"));
+			System.out.println(test.testlist.get(i).toString());
+
 		}
 	}
 
