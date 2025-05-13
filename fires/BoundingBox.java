@@ -39,4 +39,12 @@ public class BoundingBox{
 		return new BoundingBox(maxx, midy, midx, miny); 
 
 	}
+
+	// check if a point is in the box 
+	public boolean in(double xcord, double ycord) {
+		if (xcord >= minx && xcord <= maxx && ycord >= miny && ycord <= maxy) {
+			return true; 
+		}
+		return false; 
+	}
 }
