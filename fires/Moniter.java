@@ -13,13 +13,19 @@ public class Moniter{
 	}
 	@Override
 	public String toString() {
-		return site + "\n" + "(" +xcoord+","+ ycoord+ ")" + "\n" + "-------";
+		return site;
 	}
 	public String getSite(){
 		return site;
 	}
 	public HashMap<String,Double> getData(){
 		return data;
+	}
+	public double getX(){
+		return xcoord;
+	}
+	public double getY(){
+		return ycoord;
 	}
 
 	public static void main(String[] args){
