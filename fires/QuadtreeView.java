@@ -46,11 +46,11 @@ public class QuadtreeView extends JPanel {
             int height = getHeight();
             double x = leafNode.xcord;
             double y = leafNode.ycord;
-            int screenX = (int) ((x - box.minx) / (box.maxx - box.minx) * width);
-            int screenY = (int) ((box.maxy - y) / (box.maxy - box.miny) * height);
+            int screensX = (int) ((x - box.minx) / (box.maxx - box.minx) * width);
+            int screensY = (int) ((box.maxy - y) / (box.maxy - box.miny) * height);
 
             g.setColor(Color.RED);
-            g.fillOval(screenX - 2, screenY - 2, 4, 4);
+            g.fillOval(screensX - 2, screensY - 2, 4, 4);
         }
 
 
