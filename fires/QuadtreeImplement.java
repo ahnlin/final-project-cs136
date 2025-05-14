@@ -150,7 +150,7 @@ public Node insertHelper(Node current, Node prev, Item obj, BoundingBox box, dou
 			old.xcord = xcord; 
 			old.ycord = ycord; 
 		}
-		// if we are inserting an obj in the point where a node is alr located i'm assumming it's updated and we don't need to deal with this specific case? 
+		
 		else {
 			InternalNode newIN = new InternalNode(prev, box); 
 			internal++; 
@@ -164,6 +164,7 @@ public Node insertHelper(Node current, Node prev, Item obj, BoundingBox box, dou
 			return newIN;
 
 		}
+		
 	}
 	System.out.println("Another big issue!"); 
 	return null; 
