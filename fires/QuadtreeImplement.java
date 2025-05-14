@@ -170,13 +170,55 @@ public Node insertHelper(Node current, Node prev, Item obj, BoundingBox box, dou
 	return null; 
 }
 
+public List<LeafNode> get(double xval, double yval) {
+	List<LeafNode> compiled = new ArrayList<>(); 
+	getHelper(root, xval, yval, compiled); 
+	return compiled; 
+	}
+
+public void getHelper(Node current, double xcord, double ycord, List<LeafNode> compiled) {
+	if (current instanceof QuadtreeImplement.EmptyNode) {
+		return; 
+	}
+	if (current instanceof QuadtreeImplement.LeafNode) {
+		LeafNode found = (LeafNode) current; 
+		if (found.xcord == xcord && found.ycord == ycord) {
+			compiled.add(found); 
+			return;
+		}
+	}
+	else if (current instanceof QuadtreeImplement.InternalNode) {
+		InternalNode box = (InternalNode) current; 
+		if (box.northwest instanceof QuadtreeImplement.LeafNode) {
+			LeafNode found = (LeafNode) box.northwest; 
+			compiled.add(found); 
+		}
+		if (box.northeast instanceof QuadtreeImplement.LeafNode) {
+			LeafNode found = (LeafNode) box.northeast; 
+			compiled.add(found); 
+		}
+		if (box.southwest instanceof QuadtreeImplement.LeafNode) {
+			LeafNode found = (LeafNode) box.southwest; 
+			compiled.add(found); 
+		}
+		if (box.southeast instanceof QuadtreeImplement.LeafNode) {
+			LeafNode found = (LeafNode) box.southeast; 
+			compiled.add(found); 
+		}
+		return; 
+	}
+	return; 
+}
+
+
 public static void main(String[] args) {
 	    QuadtreeImplement quadtree = new QuadtreeImplement<Integer>(10.0, 10.0, 0.0, 0.0);
 
         // Insert some points
         quadtree.insert(0, 1.0, 2.0);  
         quadtree.insert(1, 3.0, 4.0);  
-        quadtree.insert(2, 5.0, 6.0);  
+        quadtree.insert(2, 5.0, 6.0); 
+        System.out.println(quadtree.get(3.0,4.0)); 
 
         // Insert outside bounding box
         System.out.println(quadtree.root.toString()); 
