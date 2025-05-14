@@ -9,7 +9,7 @@ public class Analysis {
 
 
  	public HashMap<String,Moniter> testlist;
- 	public QuadtreeImplement firetree = new QuadtreeImplement<Moniter>(-114.131211,  42.009518,  -124.409591, 32.534156);
+ 	public QuadtreeImplement firetree = new QuadtreeImplement<Moniter>(-117.5,  34.5,  -119, 33.5);
 	public Analysis(String filename){
 		this.testlist = new HashMap<String,Moniter>();
 		String filePath = filename; 
@@ -65,6 +65,12 @@ public class Analysis {
 		Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
 		System.out.println(test.testlist.get("Glendora").getData().get("01/03/2023"));
 		System.out.println(test.firetree.root.toString());
+
+		JFrame frame = new JFrame("Quadtree View");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 600);
+        frame.add(new QuadtreeView(test.firetree));
+        frame.setVisible(true);
 		
 	}
 		

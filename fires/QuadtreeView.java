@@ -6,28 +6,33 @@ public class QuadtreeView extends JPanel {
 	QuadtreeView(QuadtreeImplement<?> tree){
 		this.tree = tree;
 	}
-     @Override
+    //Allows us to draw on the Jframe
+    @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawNode(g, tree.root);
     }
-    
-
+    //Picks the type of Node and draws appropriate thing for that node
 	private void drawNode(Graphics g, QuadtreeImplement<?>.Node node){
 		if((node instanceof QuadtreeImplement.InternalNode)){
 			QuadtreeImplement<?>.InternalNode intNode = (QuadtreeImplement<?>.InternalNode) node;
 			BoundingBox intBox = intNode.box;
             int width = getWidth();
             int height = getHeight();
-            int xMin = (int) (intBox.minx / 10.0 * width);
-            int xMax = (int) (intBox.maxx / 10.0 * width);
-            int yMin = (int) ((10.0 - intBox.miny) / 10.0 * height);
-            int yMax = (int) ((10.0 - intBox.maxy) / 10.0 * height);
-            int xMid = (int) (intBox.midx / 10.0 * width);
-            int yMid = (int) ((10.0 - intBox.midy) / 10.0 * height);
+            double rootMinX = tree.root.box.minx;
+            double rootMinY = tree.root.box.miny;
+            double rootMaxX = tree.root.box.maxx;
+            double rootMaxY = tree.root.box.maxy;
+            int xMin = (int) ((intBox.minx - rootMinX)/(rootMaxX-rootMinX)*width);
+            int xMax = (int) ((intBox.maxx - rootMinX)/(rootMaxX-rootMinX)*width);
+            int yMin = (int) ((rootMaxY - intBox.miny)/(rootMaxY-rootMinY)*height);
+            int yMax = (int) ((rootMaxY - intBox.maxy)/(rootMaxY-rootMinY)*height);
+            int xMid = (int) ((intBox.midx - rootMinX)/(rootMaxX-rootMinX)*width);
+            int yMid = (int) ((rootMaxY - intBox.midy)/(rootMaxY-rootMinY)*height);
             g.setColor(Color.BLACK);
             g.drawLine(xMid, yMax, xMid, yMin);
             g.drawLine(xMin, yMid, xMax, yMid);
+
             drawNode(g, intNode.northwest);
             drawNode(g, intNode.northeast);
             drawNode(g, intNode.southwest);
@@ -36,13 +41,16 @@ public class QuadtreeView extends JPanel {
 		}
         else if (node instanceof QuadtreeImplement.LeafNode) {
             QuadtreeImplement<?>.LeafNode leafNode = (QuadtreeImplement<?>.LeafNode) node;
+            BoundingBox box = tree.root.box;
             int width = getWidth();
             int height = getHeight();
-            int x = (int) (leafNode.xcord / 10.0 * width);
-            int y = (int) ((10.0 - leafNode.ycord) / 10.0 * height);
+            double x = leafNode.xcord;
+            double y = leafNode.ycord;
+            int screenX = (int) ((x - box.minx) / (box.maxx - box.minx) * width);
+            int screenY = (int) ((box.maxy - y) / (box.maxy - box.miny) * height);
 
             g.setColor(Color.RED);
-            g.fillOval(x - 3, y - 3, 6, 6);
+            g.fillOval(screenX - 2, screenY - 2, 4, 4);
         }
 
 
