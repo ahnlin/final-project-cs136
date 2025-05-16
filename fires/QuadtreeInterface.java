@@ -11,6 +11,6 @@ public interface QuadtreeInterface<Item>{
 	public abstract void insert(Item obj, double xcord, double ycord);
 
 /*Is this to get a full branch or just one entry or one moniter?*/
-	public abstract Item get(double xcval, double yval);
+	//public abstract List<LeafNode> get(double xcval, double yval);
 
 }

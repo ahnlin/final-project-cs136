@@ -100,7 +100,7 @@ public int size() {
 
 public void insert(Item obj, double xcord, double ycord) {
 	// check if in root boudning box 
-	if (!root.box.in(xcord, ycord)) {
+	if (!root.box.contains(xcord, ycord)) {
 		return; 
 	}
 
@@ -119,19 +119,19 @@ public Node insertHelper(Node current, Node prev, Item obj, BoundingBox box, dou
 	else if (current instanceof QuadtreeImplement.InternalNode) {
 		InternalNode region = (InternalNode) current; 
 
-		if (box.northwestbox().in(xcord, ycord)) {
+		if (box.northwestbox().contains(xcord, ycord)) {
 			region.northwest = insertHelper(region.northwest, current, obj, box.northwestbox(), xcord, ycord); 
 		}
 
-		else if (box.northeastbox().in(xcord, ycord)) {
+		else if (box.northeastbox().contains(xcord, ycord)) {
 			region.northeast = insertHelper(region.northeast, current, obj, box.northeastbox(), xcord, ycord);
 		}
 
-		else if (box.southwestbox().in(xcord, ycord)) {
+		else if (box.southwestbox().contains(xcord, ycord)) {
 			region.southwest = insertHelper(region.southwest, current, obj, box.southwestbox(), xcord, ycord);
 		}
 
-		else if(box.southeastbox().in(xcord, ycord)) {
+		else if(box.southeastbox().contains(xcord, ycord)) {
 			region.southeast = insertHelper(region.southeast, current, obj, box.southeastbox(), xcord, ycord);
 		}
 
@@ -171,45 +171,59 @@ public Node insertHelper(Node current, Node prev, Item obj, BoundingBox box, dou
 }
 
 public List<LeafNode> get(double xval, double yval) {
+	// list of leaf nodes where i will compile leafnodes found 
 	List<LeafNode> compiled = new ArrayList<>(); 
-	getHelper(root, xval, yval, compiled); 
+	
+	// starting at the root node, traverse through the quadtree and examine the internal nodes by sorting using the points 
+	Node current = root; 
+	while (current instanceof QuadtreeImplement.InternalNode) {
+		InternalNode internal = (InternalNode) current; 
+		if (internal.box.northwestbox().contains(xval, yval)) {
+			current = internal.northwest;
+		} else if (internal.box.northeastbox().contains(xval, yval)) {
+			current = internal.northeast;
+		} else if (internal.box.southwestbox().contains(xval, yval)) {
+			current = internal.southwest;
+		} else if (internal.box.southeastbox().contains(xval, yval)) {
+			current = internal.southeast;
+		}
+		else {
+			System.out.println("issue!"); 
+			return compiled; 
+		}
+	}
+	// once we've located the region it is in we can see if it is a leaf or empty node
+
+		// if the current node is a leaf node check if it has this specifc x and y cord 
+		if (current instanceof QuadtreeImplement.LeafNode) {
+			LeafNode found = (LeafNode) current; 
+			if (found.xcord == xval && found.ycord == yval) {
+				compiled.add(found); 
+			}
+		}
+		// if not a leaf node it must be an empty node so look at the siblings ndoes 
+		else if (current instanceof QuadtreeImplement.EmptyNode) {
+			// get the parent node (internal node) and access each region (nw, ne, sw, se)
+			Node parent = current.parent; 
+			if (parent instanceof QuadtreeImplement.InternalNode) {
+				InternalNode internal1 = (InternalNode) parent; 
+				// use check leaf to know if any of them are leaf nodes
+				checkLeaf(internal1.northwest, compiled); 
+				checkLeaf(internal1.northeast, compiled); 
+				checkLeaf(internal1.southwest, compiled); 
+				checkLeaf(internal1.southeast, compiled); 
+			}
+		}
+	// return the list of leafnodes found 
 	return compiled; 
-	}
-
-public void getHelper(Node current, double xcord, double ycord, List<LeafNode> compiled) {
-	if (current instanceof QuadtreeImplement.EmptyNode) {
-		return; 
-	}
-	if (current instanceof QuadtreeImplement.LeafNode) {
-		LeafNode found = (LeafNode) current; 
-		if (found.xcord == xcord && found.ycord == ycord) {
-			compiled.add(found); 
-			return;
-		}
-	}
-	else if (current instanceof QuadtreeImplement.InternalNode) {
-		InternalNode box = (InternalNode) current; 
-		if (box.northwest instanceof QuadtreeImplement.LeafNode) {
-			LeafNode found = (LeafNode) box.northwest; 
-			compiled.add(found); 
-		}
-		if (box.northeast instanceof QuadtreeImplement.LeafNode) {
-			LeafNode found = (LeafNode) box.northeast; 
-			compiled.add(found); 
-		}
-		if (box.southwest instanceof QuadtreeImplement.LeafNode) {
-			LeafNode found = (LeafNode) box.southwest; 
-			compiled.add(found); 
-		}
-		if (box.southeast instanceof QuadtreeImplement.LeafNode) {
-			LeafNode found = (LeafNode) box.southeast; 
-			compiled.add(found); 
-		}
-		return; 
-	}
-	return; 
 }
-
+// created for efficiency, check if given node is a leafnode 
+public void checkLeaf(Node node, List<LeafNode> compiled) {
+	if (node instanceof QuadtreeImplement.LeafNode) {
+		LeafNode found = (LeafNode) node; 
+		compiled.add(found); 
+	}
+}
 
 public static void main(String[] args) {
 	    QuadtreeImplement quadtree = new QuadtreeImplement<Integer>(10.0, 10.0, 0.0, 0.0);
@@ -218,7 +232,7 @@ public static void main(String[] args) {
         quadtree.insert(0, 1.0, 2.0);  
         quadtree.insert(1, 3.0, 4.0);  
         quadtree.insert(2, 5.0, 6.0); 
-        System.out.println(quadtree.get(3.0,4.0)); 
+        System.out.println(quadtree.get(1.5,2.5)); 
 
         // Insert outside bounding box
         System.out.println(quadtree.root.toString()); 
