@@ -1,4 +1,3 @@
-# final-project-cs136
 # FINAL PROJECT : FOREST FIRE MAPPING 
 
 The data type we have chosen is the Quadtree. A quadtree is a 2-dimensional data structure that decomposes a space in a recursive manner. Each node represents a rectangular area in a plane and has up to four child nodes. We recognize that Quadtrees are typically considered a data structure not an ADT. However, we are struggling to find an existing ADT that encapsulates the specific behaviors we hope to implement. To work around this, we think our ADT will be a quadtree, and the specific implementation of quadtree, a point region quadtree, will be our data structure. We chose quadtrees because we wanted to visually represent 2D data efficiently. The organization into regions allows for faster and more targeted searches compared to methods that might have to check every element in a dataset. 
