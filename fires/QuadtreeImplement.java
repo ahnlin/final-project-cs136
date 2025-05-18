@@ -207,9 +207,7 @@ public List<LeafNode> get(double xval, double yval) {
 		// if the current node is a leaf node check if it has this specifc x and y cord 
 		if (current instanceof QuadtreeImplement.LeafNode) {
 			LeafNode found = (LeafNode) current; 
-			double EPSILON = 1e-6;
-
-		if (Math.abs(found.xcord - xval) < EPSILON && Math.abs(found.ycord - yval) < EPSILON) {
+			if (found.xcord == xval && found.ycord == yval) {
     		compiled.add(found);
 		}
 		}
@@ -223,13 +221,12 @@ public List<LeafNode> get(double xval, double yval) {
 			if (parent instanceof QuadtreeImplement.InternalNode) {
 				System.out.println("Parent is InternalNode — checking siblings");
 				InternalNode internal1 = (InternalNode) parent; 
-				// use check leaf to know if any of them are leaf nodes
+				// use check leaf to know if any of them are leaf nodes or contain leaf nodes in their subdivisions (don't bother checking current empty node)
         		if (internal1.northwest != current) {
         			checkLeaf(internal1.northwest, compiled); 
         		}
         		if (internal1.northeast != current) {
 				    checkLeaf(internal1.northeast, compiled); 
-
         		}
         		if (internal1.southwest != current) {
                		checkLeaf(internal1.southwest, compiled); 
@@ -242,7 +239,7 @@ public List<LeafNode> get(double xval, double yval) {
 	// return the list of leafnodes found 
 	return compiled; 
 }
-// created for efficiency, check if given node is a leafnode or if leaf nodes exist inside of them 
+// created for efficiency, check if given node is a leafnode or if leaf nodes exist inside of them (recursive check) 
 public void checkLeaf(Node node, List<LeafNode> compiled) {
 	if (node instanceof QuadtreeImplement.LeafNode) {
     	LeafNode found = (LeafNode) node; 
@@ -254,21 +251,22 @@ public void checkLeaf(Node node, List<LeafNode> compiled) {
         checkLeaf(internal.northeast, compiled);
         checkLeaf(internal.southwest, compiled);
         checkLeaf(internal.southeast, compiled);
-    }
+    } 
 }
 
 public static void main(String[] args) {
-	    QuadtreeImplement quadtree = new QuadtreeImplement<Integer>(128.0, 128.0, 0.0, 0.0);
+	QuadtreeImplement quadtree = new QuadtreeImplement<Integer>(128.0, 128.0, 0.0, 0.0);
 
         // Insert some points
-    quadtree.insert(1, 32.0, 96.0);   
-	quadtree.insert(2, 96.0, 96.0);
-	quadtree.insert(3, 112.0, 32.0);
+    quadtree.insert(1, 40.0, 45.0);   
+	quadtree.insert(2, 15.0, 70.0);
+	quadtree.insert(3, 70.0, 10.0);
+	quadtree.insert(4, 69.0, 50.0);
+	quadtree.insert(5, 55.0, 80.0);
+	quadtree.insert(6, 80.0, 90.0);
 
-    
-
-    System.out.println("Querying for (96.0, 16.0):");
-    System.out.println(quadtree.get(32.0, 32.0)); 
+    System.out.println("Querying for (60.0, 75.0):");
+    System.out.println(quadtree.get(125.0, 10.0)); 
 
         // Insert outside bounding box
         System.out.println(quadtree.root.toString()); 
