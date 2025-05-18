@@ -1,23 +1,30 @@
 package fires;
 import java.util.*; 
 public class Moniter{
+	//instance variables
 	private String site;
 	private double xcoord;
 	private double ycoord;
 	private HashMap<String,Double> data;
+
+	//constructor
 	public Moniter(String site, double xcoord,double ycoord){
 		this.site = site;
 		this.xcoord = xcoord;
 		this.ycoord = ycoord;
 		this.data = new HashMap<String,Double>();
 	}
+
+	
 	@Override
 	public String toString() {
 		return site;
 	}
+
 	public String getSite(){
 		return site;
 	}
+
 	public HashMap<String,Double> getData(){
 		return data;
 	}

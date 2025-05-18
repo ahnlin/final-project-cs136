@@ -12,6 +12,6 @@ public interface QuadtreeInterface<Item>{
 	public abstract void insert(Item obj, double xcord, double ycord);
 
 	//locates closest object given (x,y)
-	public abstract List<LeafNode> get(double xcval, double yval);
+	//public abstract List<LeafNode> get(double xcval, double yval);
 
 }

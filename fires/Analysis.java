@@ -5,17 +5,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Analysis {
-
-
-
+//Initialize a Hashmap testlist that keeps track of moniters, and our Quadtree, firetree
  	public HashMap<String,Moniter> testlist;
  	public QuadtreeImplement firetree = new QuadtreeImplement<Moniter>(-117.5,  34.5,  -119, 33.5);
 	public Analysis(String filename){
 		this.testlist = new HashMap<String,Moniter>();
 		String filePath = filename; 
 		File file = new File(filePath);
-		
-
+		//Read in the file once to add all the moniters to the quadtree
 		try{
 			
 			Scanner scanner = new Scanner(file);
@@ -38,10 +35,8 @@ public class Analysis {
 		catch(FileNotFoundException e){
 			 System.err.println("File not found: " + e.getMessage());
 		}
-
-	
+		//Read in the files again to add the historical data to each moniter
 		try{
-			
 			Scanner scanner = new Scanner(file);
 			scanner.nextLine();
 
@@ -52,8 +47,7 @@ public class Analysis {
 				String moniter = pieces[7].replace("\"", "");
 				testlist.get(moniter).getData().put(date,reading);
 			}
-
-			
+	
         }
 		catch(FileNotFoundException e){
 			 System.err.println("File not found: " + e.getMessage());
@@ -67,7 +61,7 @@ public class Analysis {
 		System.out.println("The Data for Glendora on 01/04/2023 is: "+test.testlist.get("Glendora").getData().get("01/04/2023"));
 
 		System.out.println("\n"+test.testlist.keySet());
-
+		//Create a new Jframe to visualize our quadtree in
 		JFrame frame = new JFrame("Quadtree View");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 600);

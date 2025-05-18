@@ -1,6 +1,7 @@
 package fires;
 import java.util.*; 
-import java.io.*;  
+import java.io.*; 
+
 
 public class QuadtreeImplement<Item> implements QuadtreeInterface<Item>{
 
@@ -67,10 +68,10 @@ public class InternalNode extends Node {
 
 		public InternalNode(Node parent, BoundingBox box1) {
 			this.parent = parent; 
-			northwest = new EmptyNode(parent);
-			northeast = new EmptyNode(parent);
-			southwest = new EmptyNode(parent);
-			southeast = new EmptyNode(parent);
+			northwest = new EmptyNode(this);
+			northeast = new EmptyNode(this);
+			southwest = new EmptyNode(this);
+			southeast = new EmptyNode(this);
 			this.box = box1; 
 		}
 
@@ -201,15 +202,14 @@ public List<LeafNode> get(double xval, double yval) {
 			System.out.println("issue!"); 
 			return compiled; 
 		}
-	}
+	} 
+
 	// once we've located the specific region it is in we can see if it is a leaf or empty node
 
 		// if the current node is a leaf node check if it has this specifc x and y cord 
 		if (current instanceof QuadtreeImplement.LeafNode) {
 			LeafNode found = (LeafNode) current; 
-			if (found.xcord == xval && found.ycord == yval) {
     		compiled.add(found);
-		}
 		}
 		// if not a leaf node it must be an empty node so look at the siblings ndoes 
 		else if (current instanceof QuadtreeImplement.EmptyNode) {
@@ -218,6 +218,7 @@ public List<LeafNode> get(double xval, double yval) {
        			System.out.println("Parent is null - issue.");
        		}
 			Node parent = current.parent; 
+			System.out.println(parent);
 			if (parent instanceof QuadtreeImplement.InternalNode) {
 				System.out.println("Parent is InternalNode — checking siblings");
 				InternalNode internal1 = (InternalNode) parent; 
@@ -244,14 +245,16 @@ public void checkLeaf(Node node, List<LeafNode> compiled) {
 	if (node instanceof QuadtreeImplement.LeafNode) {
     	LeafNode found = (LeafNode) node; 
         compiled.add(found);
+        System.out.println(found);
     }
     else if (node instanceof QuadtreeImplement.InternalNode) {
+    	System.out.println("hi");
     	InternalNode internal = (InternalNode) node; 
     	checkLeaf(internal.northwest, compiled);
         checkLeaf(internal.northeast, compiled);
         checkLeaf(internal.southwest, compiled);
         checkLeaf(internal.southeast, compiled);
-    } 
+    }
 }
 
 public static void main(String[] args) {
@@ -265,11 +268,14 @@ public static void main(String[] args) {
 	quadtree.insert(5, 55.0, 80.0);
 	quadtree.insert(6, 80.0, 90.0);
 
+
     System.out.println("Querying for (60.0, 75.0):");
-    System.out.println(quadtree.get(125.0, 10.0)); 
+    System.out.println(quadtree.get(123.0, 11.0)); 
+
+		
 
         // Insert outside bounding box
-        System.out.println(quadtree.root.toString()); 
+        //System.out.println(quadtree.root.toString()); 
 
 }
 }
