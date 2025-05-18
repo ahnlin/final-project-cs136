@@ -64,6 +64,8 @@ public class Analysis {
 
 		Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
 		System.out.println("The Data for Glendora on 01/03/2023 is: "+test.testlist.get("Glendora").getData().get("01/03/2023"));
+		System.out.println("The Data for Glendora on 01/04/2023 is: "+test.testlist.get("Glendora").getData().get("01/04/2023"));
+
 		System.out.println("\n"+test.testlist.keySet());
 
 		JFrame frame = new JFrame("Quadtree View");
