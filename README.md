@@ -32,6 +32,6 @@ javac -d bin fires/*.java
 ```bash
 java -cp bin fires.Analysis
 ```
-If this is done correctly a window should pop up with a visualization of the California PM2.5 Levels. Move the slider to see the different days, and press the button to switch between reading mode and extrapolate mode. Reading mode fills each leaf node with a color representing it's moniters smoke levels. Extrapolate mode uses the get method to average surrounding leaf nodes data. This mode's accuracy could definitely be improved upon but a trial version is currently implemented. All levels are colored according to IQ Airs air quality chart:
+If this is done correctly a window should pop up with a visualization of the California PM2.5 Levels. Move the slider to see the different days, and press the button to switch between reading mode and extrapolate mode. Reading mode fills each leaf node with a color representing it's moniters smoke levels. Extrapolate mode uses the get method to average surrounding leaf nodes data. This mode's accuracy could definitely be improved upon but a trial version is currently implemented. All levels are colored according to IQ Airs air quality chart:<br />
 ![image](https://github.com/user-attachments/assets/50354bfd-b1f0-464d-bbcd-0126ce295d99)
 
