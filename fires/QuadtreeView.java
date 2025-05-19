@@ -4,7 +4,7 @@ import java.util.List;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+   
 
 public class QuadtreeView extends JPanel {
 
@@ -23,6 +23,7 @@ public class QuadtreeView extends JPanel {
         this.date = date;
         this.box = tree.root.box;
         this.year = Integer.parseInt(date.split("/")[2]);
+        // add in background image (in fires folder)
         this.background = new ImageIcon("fires/CaliMap.png").getImage();
 
 	}
@@ -31,6 +32,7 @@ public class QuadtreeView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        // draw map starting from top left corner (scaling it so it fits into the panel which we hope will roughly overlay correctly)
         g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         drawNode(g, tree.root);
     }
