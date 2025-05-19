@@ -263,7 +263,7 @@ public void checkLeaf(Node node, List<LeafNode> compiled) {
 public static void main(String[] args) {
 	QuadtreeImplement quadtree = new QuadtreeImplement<Integer>(128.0, 128.0, 0.0, 0.0);
 
-        // Insert some points
+    // Insert points - took from online graph so we know what it should be returning
     quadtree.insert(1, 40.0, 45.0);   
 	quadtree.insert(2, 15.0, 70.0);
 	quadtree.insert(3, 70.0, 10.0);
@@ -272,13 +272,12 @@ public static void main(String[] args) {
 	quadtree.insert(6, 80.0, 90.0);
 
 
-    System.out.println("Querying for (60.0, 75.0):");
+    System.out.println("Querying for (123.0, 11.0):");
     System.out.println(quadtree.get(123.0, 11.0)); 
 
 		
 
-        // Insert outside bounding box
-        //System.out.println(quadtree.root.toString()); 
+    System.out.println(quadtree.root.toString()); 
 
 }
 }

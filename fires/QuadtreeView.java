@@ -33,7 +33,7 @@ public class QuadtreeView extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawNode(g, tree.root);
-        // draw map starting from top left corner (scaling it so it fits into the panel which we hope will roughly overlay correctly)
+        // draw map starting from top left corner (scaling it so it fits into the panel which we hope will roughly overlay correctly - didn't have enough time to align perfectly)
         g.drawImage(background, -16, -26, getWidth(), getHeight(), this);
         
     }
@@ -233,7 +233,7 @@ public class QuadtreeView extends JPanel {
 
 	
 	public static void main(String[] args) {
-        
+   
     }
 
 }

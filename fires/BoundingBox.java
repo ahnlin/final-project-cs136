@@ -22,7 +22,7 @@ public class BoundingBox{
 		midy = (maxy + miny) / 2;
 
 	}
-
+	// subdivision (NW, NE, SW, SE)
 	public BoundingBox northwestbox() {
 		return new BoundingBox(midx, maxy, minx, midy); 
 	}

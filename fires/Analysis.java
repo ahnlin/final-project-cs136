@@ -57,6 +57,7 @@ public class Analysis {
 		}
 
 	}
+	// had a variety of tests to ensure working correctly 
 	public static void main(String[] args){
 	//Little California test snippet
 		//Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
