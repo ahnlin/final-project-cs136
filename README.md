@@ -17,7 +17,7 @@ Analysis.java - where we injest data and run analysis <br />
 QuadtreeInterface.java - interface for the quadtree <br />
 QuadtreeImplement.java - our implementation of quadtree that uses interface <br />
 Moniter.java - Moniter class to store as points in a quadtree. Each one represents a monitor and stores historical data <br />
-QuadtreeView.java - the file that creates the graphics, visual representation of quadtree, and our user interface.
+QuadtreeView.java - the file that creates the graphics, visual representation of quadtree, and our user interface
 
 # USING OUR CODE
 
@@ -25,6 +25,11 @@ All the code and data is in the fires folder - clone the repository into your di
 To run make a bin, compile and run the Analysis file.
 ```bash
 mkdir bin
+```
+```bash
 javac -d bin fires/*.java
+```
+```bash
 java -cp bin fires.Analysis
 ```
+
