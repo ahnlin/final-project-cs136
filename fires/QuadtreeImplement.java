@@ -225,9 +225,7 @@ public List<LeafNode> get(double xval, double yval) {
        			System.out.println("Parent is null - issue.");
        		}
 			Node parent = current.parent; 
-			System.out.println(parent);
 			if (parent instanceof QuadtreeImplement.InternalNode) {
-				System.out.println("Parent is InternalNode — checking siblings");
 				InternalNode internal1 = (InternalNode) parent; 
 				// use check leaf to know if any of them are leaf nodes or contain leaf nodes in their subdivisions (don't bother checking current empty node)
         		if (internal1.northwest != current) {
@@ -252,10 +250,8 @@ public void checkLeaf(Node node, List<LeafNode> compiled) {
 	if (node instanceof QuadtreeImplement.LeafNode) {
     	LeafNode found = (LeafNode) node; 
         compiled.add(found);
-        System.out.println(found);
     }
     else if (node instanceof QuadtreeImplement.InternalNode) {
-    	System.out.println("hi");
     	InternalNode internal = (InternalNode) node; 
     	checkLeaf(internal.northwest, compiled);
         checkLeaf(internal.northeast, compiled);

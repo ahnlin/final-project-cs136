@@ -23,7 +23,6 @@ public class Analysis {
 			while (scanner.hasNextLine()) {
 				String[] pieces = scanner.nextLine().split(",");
 				String moniter = pieces[7].replace("\"", "");
-				System.out.println(pieces[21]);
 				Double ycoord = Double.valueOf(pieces[pieces.length-2].replace("\"", ""));
 				Double xcoord = Double.valueOf(pieces[pieces.length-1].replace("\"", ""));	
 				Moniter mon = new Moniter(moniter,xcoord,ycoord);
