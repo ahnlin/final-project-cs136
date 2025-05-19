@@ -36,7 +36,7 @@ javac -d bin fires/*.java
 ```bash
 java -cp bin fires.Analysis
 ```
-If this is done correctly, a window should pop up with a visualization of the California PM2.5 Levels. Move the slider to see the different days, and press the button to switch between reading mode and extrapolation mode. Reading mode fills each leaf node with a color representing each moniters smoke levels. Extrapolate mode uses the get method to average surrounding leaf nodes' data. This node's accuracy could definitely be improved upon, but a trial version is currently implemented. <br />
+If this is done correctly, a window should pop up with a visualization of the California PM2.5 Levels. Move the slider to see the different days, and press the button to switch between reading mode and extrapolation mode. Reading mode fills each leaf node with a color representing each moniters smoke levels. Extrapolate mode uses our custom .get() method of the PR quadtree to take a empty node and average surrounding leaf nodes' data. This node's accuracy could definitely be improved upon, but a trial version is currently implemented. <br />
 
 All levels are colored according to IQ Airs air quality chart:<br />
 
