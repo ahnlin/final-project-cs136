@@ -19,6 +19,7 @@ https://www.epa.gov/outdoor-air-quality-data/download-daily-data
 Analysis.java - where we injest data and run analysis <br />
 QuadtreeInterface.java - interface for the quadtree <br />
 QuadtreeImplement.java - our implementation of quadtree that uses interface <br />
+BoundingBox.java - helper class to implement the quadtree defining the edges of a box <br />
 Moniter.java - Moniter class to store as points in a quadtree. Each one represents a monitor and stores historical data <br />
 QuadtreeView.java - the file that creates the graphics, visual representation of quadtree, and our user interface
 
