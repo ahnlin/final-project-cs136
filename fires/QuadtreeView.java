@@ -14,6 +14,7 @@ public class QuadtreeView extends JPanel {
     public String date;
     public int year;
     private boolean extrapolateMode;
+    private Image background; 
 
     //constructor
 	QuadtreeView(QuadtreeImplement<Moniter> tree,String date){
@@ -22,6 +23,7 @@ public class QuadtreeView extends JPanel {
         this.date = date;
         this.box = tree.root.box;
         this.year = Integer.parseInt(date.split("/")[2]);
+        this.background = new ImageIcon("fires/CaliMap.png").getImage();
 
 	}
 
@@ -29,6 +31,7 @@ public class QuadtreeView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         drawNode(g, tree.root);
     }
 
