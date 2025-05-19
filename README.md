@@ -9,7 +9,10 @@ PR Quadtrees recursively subdivide the regions into 4 equal-sized subregions unt
 # OUR DATA 
 
 Our data comes from the United States Environmental Protection Agency. This dataset allows users to examine numerous pollutants (we plan on focusing on PM2.5, as wildfires are significant source of PM2.5 pollution), years (1999-2025), geographic areas, and monitor sites. We are particularly interested in examining the California region, but are open to altering this as we continue developing this project. This dataset allows us to choose different parameters on the EPA website before we download instead of paring down larger files, making it much easier to use. The current example file is California PM2.5 Levels in 2023, but our program is easily adaptable to other regions/years/pollutants.
+
+```bash
 https://www.epa.gov/outdoor-air-quality-data/download-daily-data
+```
 
 # FILE ORGANIZATION 
 
