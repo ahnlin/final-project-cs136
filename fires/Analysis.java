@@ -9,8 +9,9 @@ import java.time.format.DateTimeFormatter;
 public class Analysis {
 //Initialize a Hashmap testlist that keeps track of moniters, and our Quadtree, firetree
  	public HashMap<String,Moniter> testlist;
- 	public QuadtreeImplement firetree = new QuadtreeImplement<Moniter>(-114.0,  42.0,  -124.0, 32.0);
-	public Analysis(String filename){
+ 	public QuadtreeImplement firetree;
+	public Analysis(String filename,double xmax,double ymax, double xmin, double ymin){
+		this.firetree = new QuadtreeImplement<Moniter>(xmax,  ymax, xmin, ymin);
 		this.testlist = new HashMap<String,Moniter>();
 		String filePath = filename; 
 		File file = new File(filePath);
@@ -57,15 +58,21 @@ public class Analysis {
 
 	}
 	public static void main(String[] args){
-
+	//Little California test snippet
 		//Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
-		Analysis test2 = new Analysis("fires/Cali2023.csv");
+	//California 2023
+		Analysis test2 = new Analysis("fires/Cali2023.csv",-114.0,  42.0,  -124.0, 32.0);
+		QuadtreeView.play(test2.firetree,"05/23/2023",2023);
+	//Colorado 2023
+		//Analysis test3 = new Analysis("fires/Colorado2023.csv",-102.0,  41.0,  -109.0, 36.0);
+		//QuadtreeView.play(test3.firetree,"05/23/2023",2023);
+		
 		//System.out.println("The Data for Glendora on 01/03/2023 is: "+test.testlist.get("Glendora").getDataFor("01/03/2023"));
 		//System.out.println("The Data for Glendora on 01/04/2023 is: "+test.testlist.get("Glendora").getDataFor("01/04/2023"));
 
 		//System.out.println("\n"+test.testlist.keySet());
-		//Create a new Jframe to visualize our quadtree in
-		QuadtreeView.play(test2.firetree,"05/23/2023",2023);
+	
+		
 		
 	}
 		

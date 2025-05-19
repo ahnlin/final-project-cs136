@@ -35,17 +35,26 @@ public class QuadtreeView extends JPanel {
     //sets ranges of colors based on pm2.5 levels
     public static Color airToColor(double air){
         if(air < 0.0){
-            return Color.BLACK;
+            return Color.GRAY;
         }
-        else if(air < 12.0){
+        else if(air <= 9.0){
+            return Color.GREEN;
+        }
+        else if(air <= 35.4){
             return Color.YELLOW;
         }
-        else if(air < 35.0){
-            return Color.ORANGE;
+        else if(air <= 55.4){
+            //darker orange
+            return new Color(255,140,0);
         }
-        else{
+        else if(air <= 125.4){
             return Color.RED;
         }
+        else if (air <= 125.4){
+            //Purple
+            return new Color(128,0,128);
+        }
+        return Color.GRAY;
     }
 
     //Did some research into an easier way then manually converting dates to days, which is simple but tedious
@@ -163,6 +172,7 @@ public class QuadtreeView extends JPanel {
             double sum = 0.0;
             int count = 1;
             for(QuadtreeImplement<Moniter>.LeafNode cur: myList){
+                //excludes the monitors without readings
                 if(cur.data.getDataFor(date)>0.0){
                     sum += cur.data.getDataFor(date);
                     count+=1;
