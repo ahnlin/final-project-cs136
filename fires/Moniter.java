@@ -24,9 +24,14 @@ public class Moniter{
 	public String getSite(){
 		return site;
 	}
-
 	public HashMap<String,Double> getData(){
 		return data;
+	}
+	public double getDataFor(String date){
+		if (data.get(date) == null){
+			return -1.0;
+		}
+		return data.get(date);
 	}
 	public double getX(){
 		return xcoord;

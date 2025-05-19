@@ -34,11 +34,13 @@ public class Node{
 public class LeafNode extends Node{ 
 	public Item data; 
 	public double xcord; 
-	public double ycord; 
+	public double ycord;
+	public BoundingBox box;
 
-	public LeafNode(Node parent, Item data, double x, double y) {
+	public LeafNode(Node parent, Item data, double x, double y,BoundingBox box) {
 		this.parent = parent; 
 		this.data = data; 
+		this.box = box;
 		xcord = x; 
 		ycord = y; 
 	}
@@ -60,19 +62,19 @@ public class InternalNode extends Node {
 			this.parent = parent; 
 			this.box = new BoundingBox(maxx, maxy, minx, miny); 
 
-			this.northwest = new EmptyNode(this);
-			this.northeast = new EmptyNode(this);
-			this.southwest = new EmptyNode(this);
-			this.southeast = new EmptyNode(this); 
+			this.northwest = new EmptyNode(this,box.northwestbox());
+			this.northeast = new EmptyNode(this,box.northeastbox());
+			this.southwest = new EmptyNode(this,box.southwestbox());
+			this.southeast = new EmptyNode(this,box.southeastbox()); 
 		}
 
-		public InternalNode(Node parent, BoundingBox box1) {
+		public InternalNode(Node parent, BoundingBox box) {
 			this.parent = parent; 
-			northwest = new EmptyNode(this);
-			northeast = new EmptyNode(this);
-			southwest = new EmptyNode(this);
-			southeast = new EmptyNode(this);
-			this.box = box1; 
+			this.box = box; 
+			northwest = new EmptyNode(this,box.northwestbox());
+			northeast = new EmptyNode(this,box.northeastbox());
+			southwest = new EmptyNode(this,box.southwestbox());
+			southeast = new EmptyNode(this,box.southeastbox()); 
 		}
 
 		public String toString() {
@@ -81,8 +83,11 @@ public class InternalNode extends Node {
 }
 //empty nodes (no point) 
 public class EmptyNode extends Node {
-	public EmptyNode(Node parent) {
+	public BoundingBox box;
+	public EmptyNode(Node parent,BoundingBox box) {
+		this.box = box;
 		this.parent = parent; 
+
 	}
 
 	public String toString() {
@@ -114,7 +119,9 @@ public void insert(Item obj, double xcord, double ycord) {
 public Node insertHelper(Node current, Node prev, Item obj, BoundingBox box, double xcord, double ycord) {
 	// base case if current is empty node  
 	if (current instanceof QuadtreeImplement.EmptyNode) {
-		LeafNode discovered = new LeafNode(prev, obj, xcord, ycord); 
+		EmptyNode myNode = (EmptyNode) current;
+		BoundingBox myBox = myNode.box;
+		LeafNode discovered = new LeafNode(prev, obj, xcord, ycord, myBox); 
 		return discovered; 
 	}
 	// check if at internal node if so subdivide necessary boxes (recursive call)
