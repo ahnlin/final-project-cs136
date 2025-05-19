@@ -24,7 +24,7 @@ public class QuadtreeView extends JPanel {
         this.box = tree.root.box;
         this.year = Integer.parseInt(date.split("/")[2]);
         // add in background image (in fires folder)
-        this.background = new ImageIcon("fires/CaliMap.png").getImage();
+        this.background = new ImageIcon("fires/Cali2Cropped.png").getImage();
 
 	}
 
@@ -32,9 +32,10 @@ public class QuadtreeView extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // draw map starting from top left corner (scaling it so it fits into the panel which we hope will roughly overlay correctly)
-        g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
         drawNode(g, tree.root);
+        // draw map starting from top left corner (scaling it so it fits into the panel which we hope will roughly overlay correctly)
+        g.drawImage(background, -16, -26, getWidth(), getHeight(), this);
+        
     }
 
     //sets ranges of colors based on pm2.5 levels
@@ -190,14 +191,14 @@ public class QuadtreeView extends JPanel {
     }
 
     //play method so we can create our visualization from the Analysis file
-    public static void play(QuadtreeImplement<Moniter> tree,String date,int year){
+    public static void play(QuadtreeImplement<Moniter> tree,int year){
         
         //making the elements of our viewer
-        QuadtreeView view = new QuadtreeView(tree,date);
+        QuadtreeView view = new QuadtreeView(tree,"01/01/2023");
         JFrame frame = new JFrame("Quadtree View");
         JSlider slider = new JSlider(0, 364, 0);
         JButton toggle = new JButton(view.modeStatus());
-        JLabel dateBox = new JLabel(date);
+        JLabel dateBox = new JLabel("01/01/2023");
 
         //change listener for date slider -> updates the label too
         slider.addChangeListener(e -> {

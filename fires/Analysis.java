@@ -62,7 +62,7 @@ public class Analysis {
 		//Analysis test = new Analysis("fires/ad_viz_plotval_data (1).csv");
 	//California 2023
 		Analysis test2 = new Analysis("fires/Cali2023.csv",-114.0,  42.0,  -124.0, 32.0);
-		QuadtreeView.play(test2.firetree,"05/23/2023",2023);
+		QuadtreeView.play(test2.firetree,2023);
 	//Colorado 2023
 		//Analysis test3 = new Analysis("fires/Colorado2023.csv",-102.0,  41.0,  -109.0, 36.0);
 		//QuadtreeView.play(test3.firetree,"05/23/2023",2023);
